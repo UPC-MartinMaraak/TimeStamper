@@ -3,11 +3,13 @@ package miasoft.timestamper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 class TimeStamp {
 
     private Element xmlElement;
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YY hh:mm");
 
     public TimeStamp(Document document, Date checkIn, Date checkOut, String description) {
         xmlElement = document.createElement("TimeStamp");
@@ -61,8 +63,8 @@ class TimeStamp {
 
     @Override
     public String toString() {
-        String in = getCheckIn() != null ? getCheckIn().toString() : "null";
-        String out = getCheckOut() != null ?getCheckOut().toString() : "null";
+        String in = getCheckIn() != null ? sdf.format(getCheckIn()) : "not registered";
+        String out = getCheckOut() != null ? sdf.format(getCheckOut()) : "not registered";
 
         return in +" -> " + out +" | " + getDescription();
     }
